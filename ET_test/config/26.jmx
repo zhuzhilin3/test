@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.7" jmeter="2.12 r1636949">
+  <hashTree>
+    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="34 /easytong_app/AccountLogin" enabled="true">
+      <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="Time" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">Time</stringProp>
+            <stringProp name="Argument.value">${time}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="Sign" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">Sign</stringProp>
+            <stringProp name="Argument.value">${loginsign}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="UsrNumber" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">UsrNumber</stringProp>
+            <stringProp name="Argument.value">1233219</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="Password" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">Password</stringProp>
+            <stringProp name="Argument.value">${password}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="DeviceNum" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">DeviceNum</stringProp>
+            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="DeviceModel" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">DeviceModel</stringProp>
+            <stringProp name="Argument.value">HUAWEINXT-TL00</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="OSType" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">OSType</stringProp>
+            <stringProp name="Argument.value">1</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="APPVersion" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">APPVersion</stringProp>
+            <stringProp name="Argument.value">5.0.17.0330</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="NetType" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">NetType</stringProp>
+            <stringProp name="Argument.value">5</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+          <elementProp name="OSVersion" elementType="HTTPArgument">
+            <boolProp name="HTTPArgument.always_encode">false</boolProp>
+            <stringProp name="Argument.name">OSVersion</stringProp>
+            <stringProp name="Argument.value">7.0</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <boolProp name="HTTPArgument.use_equals">true</boolProp>
+          </elementProp>
+        </collectionProp>
+      </elementProp>
+      <stringProp name="HTTPSampler.domain">192.168.1.26</stringProp>
+      <stringProp name="HTTPSampler.port">83</stringProp>
+      <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+      <stringProp name="HTTPSampler.response_timeout"></stringProp>
+      <stringProp name="HTTPSampler.protocol">http</stringProp>
+      <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+      <stringProp name="HTTPSampler.path">/easytong_app/AccountLogin</stringProp>
+      <stringProp name="HTTPSampler.method">POST</stringProp>
+      <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+      <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+      <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+      <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+      <boolProp name="HTTPSampler.monitor">false</boolProp>
+      <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+    </HTTPSamplerProxy>
+    <hashTree>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP信息头管理器" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="Content-Type" elementType="Header">
+            <stringProp name="Header.name">Content-Type</stringProp>
+            <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
+          </elementProp>
+          <elementProp name="User-Agent" elementType="Header">
+            <stringProp name="Header.name">User-Agent</stringProp>
+            <stringProp name="Header.value">Dalvik/2.1.0 (Linux; U; Android 7.0; HUAWEI NXT-TL00 Build/HUAWEINXT-TL00)</stringProp>
+          </elementProp>
+          <elementProp name="Accept-Encoding" elementType="Header">
+            <stringProp name="Header.name">Accept-Encoding</stringProp>
+            <stringProp name="Header.value">gzip</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="BeanShell PreProcessor" enabled="true">
+        <boolProp name="resetInterpreter">false</boolProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="script">import com.ctf.functions.mymd5; 
+
+ 
+System.out.println(&quot;*****TEST 3des start*****&quot;);
+ 
+String szSrc = &quot;123321&quot;;
+System.out.println(&quot;加密前的字符串:&quot; + szSrc);
+String rodom=vars.get(&quot;rodom&quot;);
+System.out.println(&quot;rodom的字符串:&quot; +rodom);
+String key=rodom+rodom+rodom;
+System.out.println(&quot;key的字符串:&quot; +key);
+//mymd5 mymd5=new mymd5();
+String encoded = mymd5.encode(key,szSrc);
+System.out.println(&quot;加密后字符串为:&quot;+encoded);
+vars.put(&quot;password&quot;,encoded);//把值保存到jmeter变量encode中
+System.out.println(&quot;password字符串为:&quot;+vars.get(&quot;password&quot;));
+System.out.println(&quot;*****TEST 3des end*****&quot;);
+String time=vars.get(&quot;time&quot;);
+String all=&quot;5.0.17.0330|HUAWEINXT-TL00|0|5|1|7.0|&quot;+encoded+&quot;|&quot;+time+&quot;|1233219|ok15we1@oid8x5afd@&quot;;
+System.out.println(&quot;****all字符串为：&quot;+all);
+String lgsign=mymd5.getMd5(all);//调用工具类中的方法进行加密
+vars.put(&quot;loginsign&quot;,lgsign);//把值保存到jmeter变量loginsign中
+System.out.println(&quot;md5加密后loginsign为：&quot;+lgsign);</stringProp>
+      </BeanShellPreProcessor>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
