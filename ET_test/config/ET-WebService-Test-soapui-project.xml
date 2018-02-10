@@ -1,0 +1,987 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="e3e16be9-5d5f-4d34-9511-f13a8dc0b841" activeEnvironment="Default" name="ET_WebService_Test" resourceRoot="" soapui-version="5.1.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="fd787e40-9b2a-4e81-a33b-6b39c28bab2b" wsaVersion="NONE" name="EasyTongWebServiceSoapBinding" type="wsdl" bindingName="{http://impl.webservice.easytong.hzsun.com/}EasyTongWebServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService?wsdl"><con:part><con:url>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="EasyTongWebService" targetNamespace="http://impl.webservice.easytong.hzsun.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://impl.webservice.easytong.hzsun.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns2="http://schemas.xmlsoap.org/soap/http" xmlns:ns1="http://www.hzsun.com/">
+  <wsdl:import location="http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService?wsdl=EasyTongWebService.wsdl" namespace="http://www.hzsun.com/"></wsdl:import>
+  <wsdl:binding name="EasyTongWebServiceSoapBinding" type="ns1:EasyTongWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetAccDBMoneyAll">
+      <soap:operation soapAction="http://www.hzsun.com/GetAccDBMoneyAll" style="document"/>
+      <wsdl:input name="GetAccDBMoneyAll">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetAccDBMoneyAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksA">
+      <soap:operation soapAction="http://www.hzsun.com/GetPaymentBooksA" style="document"/>
+      <wsdl:input name="GetPaymentBooksA">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetPaymentBooksAResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AntiPayment">
+      <soap:operation soapAction="http://www.hzsun.com/AntiPayment" style="document"/>
+      <wsdl:input name="AntiPayment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AntiPaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Payment">
+      <soap:operation soapAction="http://www.hzsun.com/Payment" style="document"/>
+      <wsdl:input name="Payment">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PaymentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPasswordChange">
+      <soap:operation soapAction="http://www.hzsun.com/QueryPasswordChange" style="document"/>
+      <wsdl:input name="QueryPasswordChange">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="QueryPasswordChangeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksForXml">
+      <soap:operation soapAction="http://www.hzsun.com/GetPaymentBooksForXml" style="document"/>
+      <wsdl:input name="GetPaymentBooksForXml">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetPaymentBooksForXmlResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeQueryPassword">
+      <soap:operation soapAction="http://www.hzsun.com/ChangeQueryPassword" style="document"/>
+      <wsdl:input name="ChangeQueryPassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ChangeQueryPasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccClassForXml">
+      <soap:operation soapAction="http://www.hzsun.com/GetAccClassForXml" style="document"/>
+      <wsdl:input name="GetAccClassForXml">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetAccClassForXmlResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksAll">
+      <soap:operation soapAction="http://www.hzsun.com/GetPaymentBooksAll" style="document"/>
+      <wsdl:input name="GetPaymentBooksAll">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetPaymentBooksAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccDBMoney">
+      <soap:operation soapAction="http://www.hzsun.com/GetAccDBMoney" style="document"/>
+      <wsdl:input name="GetAccDBMoney">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetAccDBMoneyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteAccInfosForXml">
+      <soap:operation soapAction="http://www.hzsun.com/GetCompleteAccInfosForXml" style="document"/>
+      <wsdl:input name="GetCompleteAccInfosForXml">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetCompleteAccInfosForXmlResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateQueryPassword">
+      <soap:operation soapAction="http://www.hzsun.com/ValidateQueryPassword" style="document"/>
+      <wsdl:input name="ValidateQueryPassword">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ValidateQueryPasswordResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EasyTongWebService">
+    <wsdl:port binding="tns:EasyTongWebServiceSoapBinding" name="EasyTongWebServiceImplPort">
+      <soap:address location="http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService?wsdl=EasyTongWebService.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="EasyTongWebService" targetNamespace="http://www.hzsun.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://www.hzsun.com/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://www.hzsun.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.hzsun.com/">
+      <xs:element name="AntiPayment" type="tns:AntiPayment"/>
+      <xs:element name="AntiPaymentResponse" type="tns:AntiPaymentResponse"/>
+      <xs:element name="ChangeQueryPassword" type="tns:ChangeQueryPassword"/>
+      <xs:element name="ChangeQueryPasswordResponse" type="tns:ChangeQueryPasswordResponse"/>
+      <xs:element name="GetAccClassForXml" type="tns:GetAccClassForXml"/>
+      <xs:element name="GetAccClassForXmlResponse" type="tns:GetAccClassForXmlResponse"/>
+      <xs:element name="GetAccDBMoney" type="tns:GetAccDBMoney"/>
+      <xs:element name="GetAccDBMoneyAll" type="tns:GetAccDBMoneyAll"/>
+      <xs:element name="GetAccDBMoneyAllResponse" type="tns:GetAccDBMoneyAllResponse"/>
+      <xs:element name="GetAccDBMoneyResponse" type="tns:GetAccDBMoneyResponse"/>
+      <xs:element name="GetCompleteAccInfosForXml" type="tns:GetCompleteAccInfosForXml"/>
+      <xs:element name="GetCompleteAccInfosForXmlResponse" type="tns:GetCompleteAccInfosForXmlResponse"/>
+      <xs:element name="GetPaymentBooksA" type="tns:GetPaymentBooksA"/>
+      <xs:element name="GetPaymentBooksAResponse" type="tns:GetPaymentBooksAResponse"/>
+      <xs:element name="GetPaymentBooksAll" type="tns:GetPaymentBooksAll"/>
+      <xs:element name="GetPaymentBooksAllResponse" type="tns:GetPaymentBooksAllResponse"/>
+      <xs:element name="GetPaymentBooksForXml" type="tns:GetPaymentBooksForXml"/>
+      <xs:element name="GetPaymentBooksForXmlResponse" type="tns:GetPaymentBooksForXmlResponse"/>
+      <xs:element name="Payment" type="tns:Payment"/>
+      <xs:element name="PaymentResponse" type="tns:PaymentResponse"/>
+      <xs:element name="QueryPasswordChange" type="tns:QueryPasswordChange"/>
+      <xs:element name="QueryPasswordChangeResponse" type="tns:QueryPasswordChangeResponse"/>
+      <xs:element name="ValidateQueryPassword" type="tns:ValidateQueryPassword"/>
+      <xs:element name="ValidateQueryPasswordResponse" type="tns:ValidateQueryPasswordResponse"/>
+      <xs:complexType name="GetAccDBMoneyAll">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAccDBMoneyAllResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="nMoney" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksA">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="uCnt" type="xs:int"/>
+          <xs:element minOccurs="0" name="sRecId" type="xs:int"/>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksAResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="Data" type="xs:string"/>
+          <xs:element minOccurs="0" name="tCnt" type="xs:int"/>
+          <xs:element minOccurs="0" name="lRecId" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="QueryPasswordChange">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="stationCode" type="xs:int"/>
+          <xs:element minOccurs="0" name="operatorNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="password" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="QueryPasswordChangeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Payment">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="nStaNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nOptNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nDealerNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nEWalletNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nMonDeal" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="PaymentResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="nStaSID" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AntiPayment">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="nStaNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nOptNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nDealerNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nEWalletNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nMonDeal" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AntiPaymentResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="nStaSID" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksForXml">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="sBeginDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="sEndDate" type="xs:string"/>
+          <xs:element minOccurs="0" name="nStaNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nTerminalNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="nDealerNum" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksForXmlResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="Data" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ChangeQueryPassword">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="operatorNum" type="xs:int"/>
+          <xs:element minOccurs="0" name="stanum" type="xs:int"/>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="oldPassword" type="xs:string"/>
+          <xs:element minOccurs="0" name="newPassword" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ChangeQueryPasswordResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAccClassForXml">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="GetAccClassForXmlResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="Data" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAccDBMoney">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="nEWalletNum" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetAccDBMoneyResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="nMoney" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksAll">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="uCnt" type="xs:int"/>
+          <xs:element minOccurs="0" name="version" type="xs:int"/>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetPaymentBooksAllResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="Data" type="xs:string"/>
+          <xs:element minOccurs="0" name="tCnt" type="xs:int"/>
+          <xs:element minOccurs="0" name="newVersion" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetCompleteAccInfosForXml">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="version" type="xs:int"/>
+          <xs:element minOccurs="0" name="nCount" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="GetCompleteAccInfosForXmlResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+          <xs:element minOccurs="0" name="Data" type="xs:string"/>
+          <xs:element minOccurs="0" name="nCurrVersion" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ValidateQueryPassword">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="sIDNo" type="xs:string"/>
+          <xs:element minOccurs="0" name="nIDType" type="xs:int"/>
+          <xs:element minOccurs="0" name="password" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ValidateQueryPasswordResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ValidateQueryPasswordResponse">
+    <wsdl:part element="ns1:ValidateQueryPasswordResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccClassForXmlResponse">
+    <wsdl:part element="ns1:GetAccClassForXmlResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Payment">
+    <wsdl:part element="ns1:Payment" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccClassForXml">
+    <wsdl:part element="ns1:GetAccClassForXml" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="QueryPasswordChangeResponse">
+    <wsdl:part element="ns1:QueryPasswordChangeResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccDBMoneyResponse">
+    <wsdl:part element="ns1:GetAccDBMoneyResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ChangeQueryPassword">
+    <wsdl:part element="ns1:ChangeQueryPassword" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksAll">
+    <wsdl:part element="ns1:GetPaymentBooksAll" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccDBMoney">
+    <wsdl:part element="ns1:GetAccDBMoney" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksA">
+    <wsdl:part element="ns1:GetPaymentBooksA" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AntiPaymentResponse">
+    <wsdl:part element="ns1:AntiPaymentResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksAResponse">
+    <wsdl:part element="ns1:GetPaymentBooksAResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="QueryPasswordChange">
+    <wsdl:part element="ns1:QueryPasswordChange" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksForXml">
+    <wsdl:part element="ns1:GetPaymentBooksForXml" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccDBMoneyAll">
+    <wsdl:part element="ns1:GetAccDBMoneyAll" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ChangeQueryPasswordResponse">
+    <wsdl:part element="ns1:ChangeQueryPasswordResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksForXmlResponse">
+    <wsdl:part element="ns1:GetPaymentBooksForXmlResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AntiPayment">
+    <wsdl:part element="ns1:AntiPayment" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCompleteAccInfosForXml">
+    <wsdl:part element="ns1:GetCompleteAccInfosForXml" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ValidateQueryPassword">
+    <wsdl:part element="ns1:ValidateQueryPassword" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetCompleteAccInfosForXmlResponse">
+    <wsdl:part element="ns1:GetCompleteAccInfosForXmlResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="PaymentResponse">
+    <wsdl:part element="ns1:PaymentResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetPaymentBooksAllResponse">
+    <wsdl:part element="ns1:GetPaymentBooksAllResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="GetAccDBMoneyAllResponse">
+    <wsdl:part element="ns1:GetAccDBMoneyAllResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EasyTongWebService">
+    <wsdl:operation name="GetAccDBMoneyAll">
+      <wsdl:input message="ns1:GetAccDBMoneyAll" name="GetAccDBMoneyAll"></wsdl:input>
+      <wsdl:output message="ns1:GetAccDBMoneyAllResponse" name="GetAccDBMoneyAllResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksA">
+      <wsdl:input message="ns1:GetPaymentBooksA" name="GetPaymentBooksA"></wsdl:input>
+      <wsdl:output message="ns1:GetPaymentBooksAResponse" name="GetPaymentBooksAResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryPasswordChange">
+      <wsdl:input message="ns1:QueryPasswordChange" name="QueryPasswordChange"></wsdl:input>
+      <wsdl:output message="ns1:QueryPasswordChangeResponse" name="QueryPasswordChangeResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Payment">
+      <wsdl:input message="ns1:Payment" name="Payment"></wsdl:input>
+      <wsdl:output message="ns1:PaymentResponse" name="PaymentResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AntiPayment">
+      <wsdl:input message="ns1:AntiPayment" name="AntiPayment"></wsdl:input>
+      <wsdl:output message="ns1:AntiPaymentResponse" name="AntiPaymentResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksForXml">
+      <wsdl:input message="ns1:GetPaymentBooksForXml" name="GetPaymentBooksForXml"></wsdl:input>
+      <wsdl:output message="ns1:GetPaymentBooksForXmlResponse" name="GetPaymentBooksForXmlResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangeQueryPassword">
+      <wsdl:input message="ns1:ChangeQueryPassword" name="ChangeQueryPassword"></wsdl:input>
+      <wsdl:output message="ns1:ChangeQueryPasswordResponse" name="ChangeQueryPasswordResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccClassForXml">
+      <wsdl:input message="ns1:GetAccClassForXml" name="GetAccClassForXml"></wsdl:input>
+      <wsdl:output message="ns1:GetAccClassForXmlResponse" name="GetAccClassForXmlResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccDBMoney">
+      <wsdl:input message="ns1:GetAccDBMoney" name="GetAccDBMoney"></wsdl:input>
+      <wsdl:output message="ns1:GetAccDBMoneyResponse" name="GetAccDBMoneyResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPaymentBooksAll">
+      <wsdl:input message="ns1:GetPaymentBooksAll" name="GetPaymentBooksAll"></wsdl:input>
+      <wsdl:output message="ns1:GetPaymentBooksAllResponse" name="GetPaymentBooksAllResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCompleteAccInfosForXml">
+      <wsdl:input message="ns1:GetCompleteAccInfosForXml" name="GetCompleteAccInfosForXml"></wsdl:input>
+      <wsdl:output message="ns1:GetCompleteAccInfosForXmlResponse" name="GetCompleteAccInfosForXmlResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateQueryPassword">
+      <wsdl:input message="ns1:ValidateQueryPassword" name="ValidateQueryPassword"></wsdl:input>
+      <wsdl:output message="ns1:ValidateQueryPasswordResponse" name="ValidateQueryPasswordResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint></con:endpoints><con:operation id="f691f91a-8b10-4339-9a9d-464f1fa46bbd" isOneWay="false" action="http://www.hzsun.com/AntiPayment" name="AntiPayment" bindingOperationName="AntiPayment" type="Request-Response" outputName="AntiPaymentResponse" inputName="AntiPayment" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8afb8d6e-e7d2-4eb0-862b-92a6d1440cb1" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:AntiPayment>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <nStaNum>?</nStaNum>\r
+         <!--Optional:-->\r
+         <nOptNum>?</nOptNum>\r
+         <!--Optional:-->\r
+         <nDealerNum>?</nDealerNum>\r
+         <!--Optional:-->\r
+         <nEWalletNum>?</nEWalletNum>\r
+         <!--Optional:-->\r
+         <nMonDeal>?</nMonDeal>\r
+      </hzs:AntiPayment>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/AntiPayment"/></con:call></con:operation><con:operation id="26b520d4-e6f6-465b-8103-4353bf6b9081" isOneWay="false" action="http://www.hzsun.com/ChangeQueryPassword" name="ChangeQueryPassword" bindingOperationName="ChangeQueryPassword" type="Request-Response" outputName="ChangeQueryPasswordResponse" inputName="ChangeQueryPassword" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="faedab86-45f0-4211-8696-ae40f85b552e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:ChangeQueryPassword>\r
+         <!--Optional:-->\r
+         <operatorNum>?</operatorNum>\r
+         <!--Optional:-->\r
+         <stanum>?</stanum>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <oldPassword>?</oldPassword>\r
+         <!--Optional:-->\r
+         <newPassword>?</newPassword>\r
+      </hzs:ChangeQueryPassword>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/ChangeQueryPassword"/></con:call></con:operation><con:operation id="8bbd1277-9329-4e0f-a62e-1d67cb7c4a8e" isOneWay="false" action="http://www.hzsun.com/GetAccClassForXml" name="GetAccClassForXml" bindingOperationName="GetAccClassForXml" type="Request-Response" outputName="GetAccClassForXmlResponse" inputName="GetAccClassForXml" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cb99100e-d7bb-4ea6-a8ac-8472a4912802" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetAccClassForXml/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetAccClassForXml"/></con:call></con:operation><con:operation id="746b91e2-f932-49b8-943b-dfaafa39b657" isOneWay="false" action="http://www.hzsun.com/GetAccDBMoney" name="GetAccDBMoney" bindingOperationName="GetAccDBMoney" type="Request-Response" outputName="GetAccDBMoneyResponse" inputName="GetAccDBMoney" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="933e7beb-10c4-4de0-95e2-d34230f5faa8" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetAccDBMoney>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <nEWalletNum>?</nEWalletNum>\r
+      </hzs:GetAccDBMoney>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetAccDBMoney"/></con:call></con:operation><con:operation id="dfc2f0a1-e7b9-4f84-b9d2-57aae9cb5b06" isOneWay="false" action="http://www.hzsun.com/GetAccDBMoneyAll" name="GetAccDBMoneyAll" bindingOperationName="GetAccDBMoneyAll" type="Request-Response" outputName="GetAccDBMoneyAllResponse" inputName="GetAccDBMoneyAll" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5b87f38d-9f33-4f89-8826-d77513e45474" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetAccDBMoneyAll>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+      </hzs:GetAccDBMoneyAll>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetAccDBMoneyAll"/></con:call></con:operation><con:operation id="d84cd86b-9cc6-48e6-b4d3-dc6b2fc41721" isOneWay="false" action="http://www.hzsun.com/GetCompleteAccInfosForXml" name="GetCompleteAccInfosForXml" bindingOperationName="GetCompleteAccInfosForXml" type="Request-Response" outputName="GetCompleteAccInfosForXmlResponse" inputName="GetCompleteAccInfosForXml" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7c051bdf-fc59-4e86-bc0c-156972814265" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetCompleteAccInfosForXml>\r
+         <!--Optional:-->\r
+         <version>?</version>\r
+         <!--Optional:-->\r
+         <nCount>?</nCount>\r
+      </hzs:GetCompleteAccInfosForXml>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetCompleteAccInfosForXml"/></con:call></con:operation><con:operation id="f0034907-8bc9-4872-829c-b668396e41d4" isOneWay="false" action="http://www.hzsun.com/GetPaymentBooksA" name="GetPaymentBooksA" bindingOperationName="GetPaymentBooksA" type="Request-Response" outputName="GetPaymentBooksAResponse" inputName="GetPaymentBooksA" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5429f830-890e-4626-848c-47d8ca51948b" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetPaymentBooksA>\r
+         <!--Optional:-->\r
+         <uCnt>?</uCnt>\r
+         <!--Optional:-->\r
+         <sRecId>?</sRecId>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+      </hzs:GetPaymentBooksA>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetPaymentBooksA"/></con:call></con:operation><con:operation id="3466d2a0-c5d2-49cc-8f72-29e68d90ad0b" isOneWay="false" action="http://www.hzsun.com/GetPaymentBooksAll" name="GetPaymentBooksAll" bindingOperationName="GetPaymentBooksAll" type="Request-Response" outputName="GetPaymentBooksAllResponse" inputName="GetPaymentBooksAll" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="98021a6c-5895-4979-b725-9bade9ce0288" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetPaymentBooksAll>\r
+         <!--Optional:-->\r
+         <uCnt>?</uCnt>\r
+         <!--Optional:-->\r
+         <version>?</version>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+      </hzs:GetPaymentBooksAll>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetPaymentBooksAll"/></con:call></con:operation><con:operation id="a739451d-2643-4a30-b3fb-302699d7a479" isOneWay="false" action="http://www.hzsun.com/GetPaymentBooksForXml" name="GetPaymentBooksForXml" bindingOperationName="GetPaymentBooksForXml" type="Request-Response" outputName="GetPaymentBooksForXmlResponse" inputName="GetPaymentBooksForXml" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="28aaa729-7bf9-4e36-91b4-7bba88033595" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetPaymentBooksForXml>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <sBeginDate>?</sBeginDate>\r
+         <!--Optional:-->\r
+         <sEndDate>?</sEndDate>\r
+         <!--Optional:-->\r
+         <nStaNum>?</nStaNum>\r
+         <!--Optional:-->\r
+         <nTerminalNum>?</nTerminalNum>\r
+         <!--Optional:-->\r
+         <nDealerNum>?</nDealerNum>\r
+      </hzs:GetPaymentBooksForXml>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/GetPaymentBooksForXml"/></con:call></con:operation><con:operation id="62c6c823-ebae-40ff-91a4-1fdeb43ac09d" isOneWay="false" action="http://www.hzsun.com/Payment" name="Payment" bindingOperationName="Payment" type="Request-Response" outputName="PaymentResponse" inputName="Payment" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="eda0f281-5739-4d6f-a72f-e5c69d720b26" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:Payment>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <nStaNum>?</nStaNum>\r
+         <!--Optional:-->\r
+         <nOptNum>?</nOptNum>\r
+         <!--Optional:-->\r
+         <nDealerNum>?</nDealerNum>\r
+         <!--Optional:-->\r
+         <nEWalletNum>?</nEWalletNum>\r
+         <!--Optional:-->\r
+         <nMonDeal>?</nMonDeal>\r
+      </hzs:Payment>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/Payment"/></con:call></con:operation><con:operation id="70561a1b-aff9-4a13-a702-d8f57a847f28" isOneWay="false" action="http://www.hzsun.com/QueryPasswordChange" name="QueryPasswordChange" bindingOperationName="QueryPasswordChange" type="Request-Response" outputName="QueryPasswordChangeResponse" inputName="QueryPasswordChange" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="1551bb83-d84a-43e0-96a3-4db1e3964725" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:QueryPasswordChange>\r
+         <!--Optional:-->\r
+         <stationCode>?</stationCode>\r
+         <!--Optional:-->\r
+         <operatorNum>?</operatorNum>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <password>?</password>\r
+      </hzs:QueryPasswordChange>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/QueryPasswordChange"/></con:call></con:operation><con:operation id="9d64a6aa-0f52-41a4-bcd9-99bb42734b30" isOneWay="false" action="http://www.hzsun.com/ValidateQueryPassword" name="ValidateQueryPassword" bindingOperationName="ValidateQueryPassword" type="Request-Response" outputName="ValidateQueryPasswordResponse" inputName="ValidateQueryPassword" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2cef2027-d3ad-43ee-998e-e24e5f7bc78a" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:ValidateQueryPassword>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+         <!--Optional:-->\r
+         <password>?</password>\r
+      </hzs:ValidateQueryPassword>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.hzsun.com/ValidateQueryPassword"/></con:call></con:operation></con:interface><con:testSuite id="d19ae819-28d6-4173-91ba-d4b9c899e4db" name="EasyTongWebServiceSoapBinding TestSuite"><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting><con:setting id="GeneratableJUnitReport@Style">Multiple Pages</con:setting><con:setting id="GeneratableJUnitReport@Folder">C:\Users\chutf\Desktop</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:testCase id="6f289e91-a7c8-412d-abb2-c3ebc4a17ef8" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="收费冲正AntiPayment TestCase" searchProperties="true"><con:settings/><con:testStep type="request" id="5c1a5cc2-6100-4635-b701-9934075e5729" name="电子账户消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="电子账户消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         <nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nOptNum>${#Project#nOptNum}</nOptNum>
+         <!--Optional:-->
+         <nDealerNum>${#Project#nDealerNum}</nDealerNum><nEWalletNum>${#Project#nEWalletNumDB}</nEWalletNum><nMonDeal>${#Project#nMonDealDB}</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ffdbb99c-7c1a-408d-bff5-ac2043d78a13" name="电子账户冲正AntiPayment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>AntiPayment</con:operation><con:request name="电子账户冲正AntiPayment" id="3f131c90-3630-422c-916d-f5dc7e176eee"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:AntiPayment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         <nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nOptNum>${#Project#nOptNum}</nOptNum>
+         <!--Optional:-->
+         <nDealerNum>${#Project#nDealerNum}</nDealerNum><nEWalletNum>${#Project#nEWalletNumDB}</nEWalletNum><nMonDeal>${#Project#nMonDealDB}</nMonDeal>
+      </hzs:AntiPayment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="56acf2b1-9b96-40de-9666-8f78f35cabf1" name="Contains"><con:configuration><token>&lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/AntiPayment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>5c1a5cc2-6100-4635-b701-9934075e5729</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="4c2ca3d6-289c-4f0a-9c02-aff4350d54a5" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="修改查询密码ChangeQueryPassword" searchProperties="true"><con:settings/><con:testStep type="request" id="595ebb62-85fd-4ce6-a7a2-1355b8569e74" name="ChangeQueryPassword"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>ChangeQueryPassword</con:operation><con:request name="ChangeQueryPassword" id="96e901c7-509a-4af9-b7c0-872a1ce2093d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:ChangeQueryPassword>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <operatorNum>${#Project#nOptNum}</operatorNum>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <stanum>${#Project#nStaNum}</stanum><sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType><oldPassword>${#Project#password}</oldPassword><newPassword>${#Project#newPassword}</newPassword>
+      </hzs:ChangeQueryPassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/ChangeQueryPassword" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="fe4edeb8-63fc-47a5-8c26-5889911610ff" name="ChangeQueryPasswordOld"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>ChangeQueryPassword</con:operation><con:request name="ChangeQueryPasswordOld" id="96e901c7-509a-4af9-b7c0-872a1ce2093d"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:ChangeQueryPassword>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <operatorNum>${#Project#nOptNum}</operatorNum>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <stanum>${#Project#nStaNum}</stanum><sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType><oldPassword>${#Project#newPassword}</oldPassword><newPassword>${#Project#password}</newPassword>
+      </hzs:ChangeQueryPassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/ChangeQueryPassword" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="df726c07-eeb4-4275-9316-c5c278fea016" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取身份参数GetAccClassForXml" searchProperties="true"><con:settings/><con:testStep type="request" id="ba823c25-f5db-44f7-9405-106a75979719" name="GetAccClassForXml"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetAccClassForXml</con:operation><con:request name="GetAccClassForXml" id="c1cc4267-e541-4529-b6a9-600f1c704bc3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetAccClassForXml/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="5d0000b0-0ac2-4ea1-b729-33a442daecf4" name="Contains"><con:configuration><token/><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" id="4b38c32e-7b3e-45a3-84db-8f73e507fb4c" name="Contains 1"><con:configuration><token>卡户身份</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetAccClassForXml" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="dc17953e-aea2-4530-add6-01f222811ed1" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取电子账户余额GetAccDBMoney" searchProperties="true"><con:settings/><con:testStep type="request" id="473e3300-b142-42e5-8a7c-ac175be90f78" name="GetAccDBMoney"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetAccDBMoney</con:operation><con:request name="GetAccDBMoney" id="d126f92c-1747-46c9-966a-dae40aca2245"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetAccDBMoney>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo><nIDType>${#Project#nIDType}</nIDType><nEWalletNum>${#Project#nEWalletNumDB}</nEWalletNum>
+      </hzs:GetAccDBMoney>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="f2fc9d7a-8ead-4ebd-be80-bf269b54fd1a" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetAccDBMoney" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="5305e17c-1670-43d4-a796-f208c187b916" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取卡户库余额GetAccDBMoneyAll" searchProperties="true"><con:settings/><con:testStep type="request" id="e42bf17f-fb16-4ad9-bef1-6dd28c016ec2" name="GetAccDBMoneyAll"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetAccDBMoneyAll</con:operation><con:request name="GetAccDBMoneyAll" id="e3b92db4-ce5f-4ac7-8774-6e0ae489a16e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetAccDBMoneyAll>
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo><nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         
+      </hzs:GetAccDBMoneyAll>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="270019db-5ca1-4dd8-ab70-59d54ba80c8d" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetAccDBMoneyAll" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="aca6058d-c59a-4bd3-b1c6-534df0f46f49" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取帐户完全信息GetCompleteAccInfosForXml" searchProperties="true"><con:settings/><con:testStep type="request" id="03cd20ce-f0e4-4dbf-9b35-36baa010491b" name="GetCompleteAccInfosForXml"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetCompleteAccInfosForXml</con:operation><con:request name="GetCompleteAccInfosForXml" id="dd821799-0c53-4cc8-b166-9e7aace595de"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetCompleteAccInfosForXml>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <version>${#Project#version}</version><nCount>${#Project#nCount}</nCount>
+      </hzs:GetCompleteAccInfosForXml>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="0f5a2c63-b956-4d4c-8b17-0646f0e7da24" name="Contains"><con:configuration><token>&lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetCompleteAccInfosForXml" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="c37902ff-8766-4f8c-837c-6d68daf81ada" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取交易流水GetPaymentBooksForXml" searchProperties="true"><con:settings/><con:testStep type="request" id="eca05d75-e751-4b03-b8df-d447d9444a94" name="GetPaymentBooksForXml"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetPaymentBooksForXml</con:operation><con:request name="GetPaymentBooksForXml" id="ed33cdec-657d-42f7-999c-3c1880ef1ad5"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetPaymentBooksForXml>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         <sBeginDate>${#Project#sBeginDate}</sBeginDate>
+         <!--Optional:-->
+         <sEndDate>${#Project#sEndDate}</sEndDate>
+         <!--Optional:-->
+         <nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nTerminalNum>${#Project#nTerminalNum}</nTerminalNum><nDealerNum>${#Project#nDealerNumAll}</nDealerNum>
+      </hzs:GetPaymentBooksForXml>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetPaymentBooksForXml" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="e544df1d-a126-4389-9970-ea1b34f3ec16" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="商务交易Payment" searchProperties="true"><con:settings/><con:testStep type="request" id="c4a8c8c1-1a88-47a8-ae7a-4fab138c01ee" name="电子账户消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="电子账户消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNo}</sIDNo>
+         <!--Optional:-->
+         <nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         <nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nOptNum>${#Project#nOptNum}</nOptNum>
+         <!--Optional:-->
+         <nDealerNum>${#Project#nDealerNum}</nDealerNum><nEWalletNum>${#Project#nEWalletNumDB}</nEWalletNum><nMonDeal>${#Project#nMonDeal}</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="717b5fb9-2b03-453b-8ec1-d4f008bf99a3" name="电子现金消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="电子现金消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>${#Project#sIDNoCardNum}</sIDNo><nIDType>${#Project#nIDTypeCardNum}</nIDType>
+         <!--Optional:-->
+         <nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nOptNum>${#Project#nOptNum}</nOptNum>
+         <!--Optional:-->
+         <nDealerNum>${#Project#nDealerNum}</nDealerNum><nEWalletNum>${#Project#nEWalletNumCard}</nEWalletNum><nMonDeal>${#Project#nMonDealCard}</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="9392e01c-aede-4302-ae3f-ddbdd6139731" name="Copy of 电子现金消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="Copy of 电子现金消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>106241</sIDNo>
+         <!--Optional:-->
+         <nIDType>1</nIDType><nStaNum>${#Project#nStaNum}</nStaNum>
+         <!--Optional:-->
+         <nOptNum>${#Project#nOptNum}</nOptNum>
+         <!--Optional:-->
+         <nDealerNum>${#Project#nDealerNum}</nDealerNum><nEWalletNum>${#Project#nEWalletNumCard}</nEWalletNum><nMonDeal>${#Project#nMonDealCard}</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="eccf74a0-49aa-40c0-a1a1-ecc49fe03cb2" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="强制修改查询密码QueryPasswordChange" searchProperties="true"><con:settings/><con:testStep type="request" id="c5a69052-f3ac-48ba-a19b-0a6508010c56" name="QueryPasswordChange"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>QueryPasswordChange</con:operation><con:request name="QueryPasswordChange" id="193a667f-adbf-42cd-8423-5faaa17cc0ef"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:QueryPasswordChange>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <stationCode>${#Project#nStaNum}</stationCode>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <operatorNum>${#Project#nOptNum}</operatorNum><sIDNo>${#Project#sIDNo}</sIDNo><nIDType>${#Project#nIDType}</nIDType><password>${#Project#password}</password>
+      </hzs:QueryPasswordChange>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="f671e2e2-d4ba-40a3-b502-d504c7f3e7b4" name="Contains"><con:configuration><token>&lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/QueryPasswordChange" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="9548e1fb-86e4-4081-b602-0b11326dd8de" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="验证查询密码ValidateQueryPassword" searchProperties="true"><con:settings/><con:testStep type="request" id="185956b9-0f5a-40bc-856a-6ed7175853a0" name="ValidateQueryPassword"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>ValidateQueryPassword</con:operation><con:request name="ValidateQueryPassword" id="4f2588db-2a57-463a-85ce-967d834e0687"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:ValidateQueryPassword>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>3</sIDNo><nIDType>1</nIDType><password>65432111</password>
+      </hzs:ValidateQueryPassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="659a0686-ab37-4f6b-a4bf-5be2b81c9a57" name="Contains"><con:configuration><token>  &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/ValidateQueryPassword" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="9b759720-b1f3-4150-ae8b-64e5faa07905" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetPaymentBooksAll TestCase" searchProperties="true" disabled="true"><con:settings/><con:testStep type="request" id="22469673-67d2-4d65-a027-54dd608d0a2b" name="GetPaymentBooksAll"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetPaymentBooksAll</con:operation><con:request name="GetPaymentBooksAll" id="8120f931-8876-462d-a3ba-4086f506ae6d"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <hzs:GetPaymentBooksAll>\r
+         <!--Optional:-->\r
+         <uCnt>?</uCnt>\r
+         <!--Optional:-->\r
+         <version>?</version>\r
+         <!--Optional:-->\r
+         <sIDNo>?</sIDNo>\r
+         <!--Optional:-->\r
+         <nIDType>?</nIDType>\r
+      </hzs:GetPaymentBooksAll>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig action="http://www.hzsun.com/GetPaymentBooksAll" mustUnderstand="NONE" version="200508"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="12d2388d-fdab-4af8-924a-e6a00fd2da3a" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="GetPaymentBooksA TestCase" searchProperties="true" disabled="true"><con:settings/><con:testStep type="request" id="24a4fa73-cc3b-4597-9c6a-025d91eca8e0" name="GetPaymentBooksA"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetPaymentBooksA</con:operation><con:request name="GetPaymentBooksA" id="0f9acce0-4556-48f8-9908-18bec59df102"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetPaymentBooksA>
+         <!--Optional:-->
+         <uCnt>?</uCnt>
+         <!--Optional:-->
+         <sRecId>?</sRecId>
+         <!--Optional:-->
+         <sIDNo>?</sIDNo>
+         <!--Optional:-->
+         <nIDType>?</nIDType>
+      </hzs:GetPaymentBooksA>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetPaymentBooksA" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="07f8bebc-c937-4542-be35-bde4fb732b5f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="曦客那验证查询密码ValidateQueryPassword" searchProperties="true"><con:settings/><con:testStep type="request" id="ee640b5d-ed60-4179-be70-d984985b9f26" name="ValidateQueryPassword"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>ValidateQueryPassword</con:operation><con:request name="ValidateQueryPassword" id="4f2588db-2a57-463a-85ce-967d834e0687"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:ValidateQueryPassword>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>2</sIDNo><nIDType>1</nIDType><password>123456</password>
+      </hzs:ValidateQueryPassword>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="659a0686-ab37-4f6b-a4bf-5be2b81c9a57" name="Contains"><con:configuration><token>  &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/ValidateQueryPassword" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="e192df99-dc92-4004-99bc-cefda9cb3012" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="曦客商务交易Payment" searchProperties="true"><con:settings/><con:testStep type="request" id="62872a9a-5a7d-45ae-b365-b5294b3f1943" name="电子账户消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="电子账户消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>2</sIDNo>
+         <!--Optional:-->
+         <nIDType>1</nIDType>
+         <!--Optional:-->
+         <nStaNum>1</nStaNum>
+         <!--Optional:-->
+         <nOptNum>100002</nOptNum><nDealerNum>100001</nDealerNum><nEWalletNum>1</nEWalletNum><nMonDeal>1</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ecc59fba-d3fa-4b0c-a46e-96bd49781abf" name="电子现金消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="电子现金消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>2</sIDNo><nIDType>1</nIDType><nStaNum>1</nStaNum>
+         <!--Optional:-->
+         <nOptNum>100002</nOptNum><nDealerNum>100001</nDealerNum><nEWalletNum>1</nEWalletNum><nMonDeal>1</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" id="ac2c9cde-eab2-4392-9094-513a7990966b" name="97电子现金消费Payment"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>Payment</con:operation><con:request name="97电子现金消费Payment" id="39bcffbf-c33a-4a72-939c-808a9cc517c2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.97:8084/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:Payment>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <sIDNo>868</sIDNo><nIDType>1</nIDType><nStaNum>1</nStaNum>
+         <!--Optional:-->
+         <nOptNum>100007</nOptNum><nDealerNum>100002</nDealerNum><nEWalletNum>1</nEWalletNum><nMonDeal>1</nMonDeal>
+      </hzs:Payment>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="21d50ea4-0efb-4dc6-a327-a7afaf12e080" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/Payment" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="e3d95711-a377-4ac9-950f-f576ad2e03af" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="曦客获取帐户完全信息GetCompleteAccInfosForXml" searchProperties="true"><con:settings/><con:testStep type="request" id="0f48d84e-0e66-4e0c-80c6-547a27948fc3" name="GetCompleteAccInfosForXml"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetCompleteAccInfosForXml</con:operation><con:request name="GetCompleteAccInfosForXml" id="dd821799-0c53-4cc8-b166-9e7aace595de"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetCompleteAccInfosForXml>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <version>${#Project#version}</version><nCount>${#Project#nCount}</nCount>
+      </hzs:GetCompleteAccInfosForXml>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="0f5a2c63-b956-4d4c-8b17-0646f0e7da24" name="Contains"><con:configuration><token>&lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetCompleteAccInfosForXml" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="b9f5e72f-83a7-43d9-9e64-fa982ca1059b" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="曦客强制修改查询密码QueryPasswordChange" searchProperties="true"><con:settings/><con:testStep type="request" id="1c7f6bb8-fdca-4d86-845d-52b5b352d7a5" name="QueryPasswordChange"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>QueryPasswordChange</con:operation><con:request name="QueryPasswordChange" id="193a667f-adbf-42cd-8423-5faaa17cc0ef"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.26:84/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:QueryPasswordChange>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <stationCode>${#Project#nStaNum}</stationCode>
+         <!--Optional:-->
+         
+         <!--Optional:-->
+         <operatorNum>${#Project#nOptNum}</operatorNum><sIDNo>${#Project#sIDNo}</sIDNo><nIDType>${#Project#nIDType}</nIDType><password>${#Project#password}</password>
+      </hzs:QueryPasswordChange>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="f671e2e2-d4ba-40a3-b502-d504c7f3e7b4" name="Contains"><con:configuration><token>&lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/QueryPasswordChange" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:testCase id="a5e26f77-2879-4fba-9899-22ed6971c983" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="曦客获取卡户库余额GetAccDBMoneyAll" searchProperties="true"><con:settings/><con:testStep type="request" id="90b409ef-3440-4c0e-b276-97a86e5b70fb" name="97GetAccDBMoneyAll"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>EasyTongWebServiceSoapBinding</con:interface><con:operation>GetAccDBMoneyAll</con:operation><con:request name="97GetAccDBMoneyAll" id="e3b92db4-ce5f-4ac7-8774-6e0ae489a16e"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.6.145:8080/easytong_webservice/services/EasyTongWebService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:hzs="http://www.hzsun.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <hzs:GetAccDBMoneyAll>
+         <!--Optional:-->
+         <sIDNo>3</sIDNo><nIDType>${#Project#nIDType}</nIDType>
+         <!--Optional:-->
+         
+      </hzs:GetAccDBMoneyAll>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="Simple Contains" id="270019db-5ca1-4dd8-ab70-59d54ba80c8d" name="Contains"><con:configuration><token> &lt;return>1&lt;/return>
+</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="http://www.hzsun.com/GetAccDBMoneyAll" mustUnderstand="NONE" version="200508"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/><con:reportParameters/></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>sIDNo</con:name><con:value>106241</con:value></con:property><con:property><con:name>nIDType</con:name><con:value>1</con:value></con:property><con:property><con:name>nEWalletNumDB</con:name><con:value>9</con:value></con:property><con:property><con:name>version</con:name><con:value>1</con:value></con:property><con:property><con:name>nCount</con:name><con:value>2</con:value></con:property><con:property><con:name>nStaNum</con:name><con:value>1</con:value></con:property><con:property><con:name>nOptNum</con:name><con:value>100003</con:value></con:property><con:property><con:name>nDealerNum</con:name><con:value>100001</con:value></con:property><con:property><con:name>nMonDeal</con:name><con:value>2</con:value></con:property><con:property><con:name>sIDNoCardNum</con:name><con:value>7b8ea691000000000000</con:value></con:property><con:property><con:name>nIDTypeCardNum</con:name><con:value>2</con:value></con:property><con:property><con:name>nEWalletNumCard</con:name><con:value>1</con:value></con:property><con:property><con:name>nMonDealCard</con:name><con:value>1</con:value></con:property><con:property><con:name>password</con:name><con:value>123321</con:value></con:property><con:property><con:name>newPassword</con:name><con:value>112233</con:value></con:property><con:property><con:name>nMonDealDB</con:name><con:value>2</con:value></con:property><con:property><con:name>sBeginDate</con:name><con:value>20171022</con:value></con:property><con:property><con:name>sEndDate</con:name><con:value>20171025</con:value></con:property><con:property><con:name>nTerminalNum</con:name><con:value>0</con:value></con:property><con:property><con:name>nDealerNumAll</con:name><con:value>0</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:oAuth2ProfileContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:sensitiveInformation/></con:soapui-project>

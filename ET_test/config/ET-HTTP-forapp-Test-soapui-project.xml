@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="54707331-23aa-4f4f-b1dd-b5a3919540bf" activeEnvironment="Default" name="ET_HTTP_forapp_Test" resourceRoot="" soapui-version="5.1.2" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:testSuite id="560ac51b-8567-4ff7-a1da-a8fe9866a0fb" name="手机app接口测试"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="c827c92c-0fca-45c7-8b01-10a483f51096" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取随机数GetRandomNumber" searchProperties="true"><con:settings/><con:testStep type="groovy" name="计算当前时间Time" id="9d047578-d9d4-4595-983f-ced0273227d7"><con:settings/><con:config><script>import java.util.*;
+import java.text.SimpleDateFormat;
+// current date
+String currentTIme = today();
+log.info(currentTIme);
+return currentTIme;
+//**********************************************************************Methods**************************************************************************
+
+def today(){
+    String str = "";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    Calendar lastDate = Calendar.getInstance();
+    str = sdf.format(lastDate.getTime());
+    return str;
+}</script></con:config></con:testStep><con:testStep type="transfer" name="赋值Time" id="231495a1-31b5-4e07-866b-0e517358b906"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Time</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算当前时间Time</con:sourceStep><con:targetType>Time</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="计算sign" id="a948ffa0-3348-4767-a4e6-bab13b084f20"><con:settings/><con:config><script><![CDATA[import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  Time= context.expand( '${#Project#Time}' ); 
+  map.put("Time", Time);   
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+map.get(list.get(i))+"|";
+	}  
+//log.info(str);  
+def appid=context.expand( 'ok15we1@oid8x5afd@' );
+//log.info("key(appid)="+appid);
+String dst =str+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值sign" id="273e8d9c-7d94-478f-9764-d66a65688f1f"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算sign</con:sourceStep><con:targetType>Sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="获取随机数GetRandomNumber" id="f08d5bae-b1dc-4843-af70-edfc823c7557"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="4903189a-9552-47c7-8cb4-ff135d115303" name="获取随机数GetRandomNumber" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding/><con:endpoint>http://${#Project#weburl}/easytong_app/GetRandomNumber</con:endpoint><con:request/><con:assertion type="Simple Contains" id="b912cef2-b548-4854-979a-7de253a49b04" name="Contains"><con:configuration><token>&lt;Code>1&lt;/Code></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>Time</con:name><con:value>${#Project#Time}</con:value><con:style>QUERY</con:style><con:default>20120425201208</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>Sign</con:name><con:value>${#Project#Sign}</con:value><con:style>QUERY</con:style><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="保存赋值随机数random" id="a1720aef-8963-4ddc-88bb-25032106a56b"><con:settings/><con:config><script>def  xresponse = testRunner.testCase.testSteps["获取随机数GetRandomNumber"].testRequest.response.contentAsString;
+def  str = new XmlParser().parseText(xresponse);
+ log.info(xresponse);
+def RandomNum=str.Random.text();
+ log.info(RandomNum);
+ testRunner.testCase.testSuite.project.setPropertyValue("random", RandomNum);
+// return    RandomNum ;</script></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>36a44796-fdd2-4e25-bd94-b44a96f94951</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>9d047578-d9d4-4595-983f-ced0273227d7</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>231495a1-31b5-4e07-866b-0e517358b906</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>273e8d9c-7d94-478f-9764-d66a65688f1f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="02c05c29-0cd8-436d-9ec4-ae6b401a81cd" failOnError="true" failTestCaseOnErrors="true" keepSession="true" maxResults="0" name="卡户登录AccountLogin" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword=""><con:settings/><con:testStep type="groovy" name="计算当前时间Time" id="209984a2-5bc5-4196-a3ca-b496ea69ab70"><con:settings/><con:config><script>import java.util.*;
+import java.text.SimpleDateFormat;
+// current date
+String currentTIme = today();
+log.info(currentTIme);
+return currentTIme;
+//**********************************************************************Methods**************************************************************************
+
+def today(){
+    String str = "";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    Calendar lastDate = Calendar.getInstance();
+    str = sdf.format(lastDate.getTime());
+    return str;
+}</script></con:config></con:testStep><con:testStep type="transfer" name="赋值Time" id="dc59e1f1-8ba4-40eb-b28b-44b4fd395fa0"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Time</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算当前时间Time</con:sourceStep><con:targetType>Time</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="计算获取随机数的sign" id="7c7650d5-06a5-4871-b546-593e2df222d4"><con:settings/><con:config><script><![CDATA[import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  Time= context.expand( '${#Project#Time}' ); 
+  map.put("Time", Time);   
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+map.get(list.get(i))+"|";
+	}  
+//log.info(str);  
+def appid=context.expand( 'ok15we1@oid8x5afd@' );
+//log.info("key(appid)="+appid);
+String dst =str+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+log.info("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值随机数的sign" id="d8a3b320-18db-421f-aa16-db510dd2fe71"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算获取随机数的sign</con:sourceStep><con:targetType>Sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="获取随机数GetRandomNumber" id="b176c2d3-7a85-4e50-86a9-0e3edab09b7b"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="28954945-4135-4de1-b23a-160051535172" name="获取随机数GetRandomNumber" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#weburl}/easytong_app/GetRandomNumber</con:endpoint><con:request/><con:assertion type="Simple Contains" id="8354ce0a-49ba-4bd8-8cde-cdc96c861d04" name="Contains"><con:configuration><token>&lt;Code>1&lt;/Code></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:password/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>Time</con:name><con:value>${#Project#Time}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>Sign</con:name><con:value>${#Project#Sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="保存赋值随机数random" id="54b6582b-ddb2-4f25-aca9-24208a48967f"><con:settings/><con:config><script>def  xresponse = testRunner.testCase.testSteps["获取随机数GetRandomNumber"].testRequest.response.contentAsString;
+def  str = new XmlParser().parseText(xresponse);
+ log.info(xresponse);
+def RandomNum=str.Random.text();
+ log.info(RandomNum);
+ testRunner.testCase.testSuite.project.setPropertyValue("random", RandomNum);
+// return    RandomNum ;</script></con:config></con:testStep><con:testStep type="groovy" name="计算卡户登录的sign" id="45b1625b-ef2e-4db2-bb7f-5093fa7ae617"><con:settings/><con:config><script>import java.security.MessageDigest
+ import com.ctf.functions.mymd5; 
+
+ 
+ log.info("*****TEST 3des test Start *****");
+def  Passwordinit= context.expand( '${#Project#Passwordinit}' ); 
+log.info(" Passwordinit的字符串:" +Passwordinit);
+def random=context.expand( '${#Project#random}' ); 
+log.info("random的字符串:" +random);
+def key=random+"0000000000000000"; 
+log.info("key的字符串:" +key);
+//mymd5 mymd5=new mymd5();
+def  Password = mymd5.encode(key,Passwordinit);
+log.info("加密后字符串为:"+Password); 
+testRunner.testCase.testSuite.project.setPropertyValue("Password", Password);
+log.info("*****TEST 3des end*****");
+
+//字典序排序  
+HashMap&lt;String,String> map=new HashMap&lt;String,String>();  
+ def  UsrNumber= context.expand( '${#Project#UsrNumber}' ); 
+ def  DeviceNum= context.expand( '${#Project#DeviceNum}' );   
+def  DeviceModel= context.expand( '${#Project#DeviceModel}' ); 
+def  OSType= context.expand( '${#Project#OSType}' ); 
+def  APPVersion= context.expand( '${#Project#APPVersion}' ); 
+def  NetType= context.expand( '${#Project#NetType}' ); 
+ def  OSVersion= context.expand( '${#Project#OSVersion}' ); 
+ def  Time= context.expand( '${#Project#Time}' ); 
+ 
+ log.info("**********************MD5的Sign Start************************");
+ 
+  map.put("UsrNumber", UsrNumber);   
+  map.put("Password", Password);   
+  map.put("DeviceNum", DeviceNum);   
+  map.put("DeviceModel", DeviceModel);   
+  map.put("OSType", OSType);   
+  map.put("APPVersion", APPVersion);   
+  map.put("NetType", NetType);   
+  map.put("OSVersion", OSVersion);              
+  map.put("Time", Time);   
+ 
+Collection&lt;String> keyset= map.keySet();     
+List list=new ArrayList&lt;String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i&lt;list.size();i++){  
+	str=str+map.get(list.get(i))+"|";
+	}  
+//log.info(str);  
+def appid=context.expand( 'ok15we1@oid8x5afd@' );
+//log.info("key(appid)="+appid);
+String dst =str+appid;
+log.info(dst);  
+//调用工具类中的方法进行加密
+String strloginSign=mymd5.getMd5(dst);
+log.info( strloginSign);
+log.info("**********************MD5的Sign  End************************");
+
+return strloginSign ;
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="transfer" name="赋值卡户登录的sign" id="352fb9de-2d6c-4056-afa0-26b661b524d1"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算卡户登录的sign</con:sourceStep><con:targetType>Sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="卡户登录AccountLogin" id="c07145a3-78b4-40f6-8df5-1b3916844836"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="4903189a-9552-47c7-8cb4-ff135d115303" name="卡户登录AccountLogin" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding/><con:endpoint>http://${#Project#weburl}/easytong_app/AccountLogin</con:endpoint><con:request/><con:assertion type="Simple Contains" id="b912cef2-b548-4854-979a-7de253a49b04" name="Contains"><con:configuration><token>&lt;Code>1&lt;/Code></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>Time</con:name><con:value>${#Project#Time}</con:value><con:style>QUERY</con:style><con:default>20120425201208</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>Sign</con:name><con:value>${#Project#Sign}</con:value><con:style>QUERY</con:style><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>UsrNumber</con:name><con:value>${#Project#UsrNumber}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>Password</con:name><con:value>${#Project#Password}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>DeviceNum</con:name><con:value>${#Project#DeviceNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>DeviceModel</con:name><con:value>${#Project#DeviceModel}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>OSType</con:name><con:value>${#Project#OSType}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>APPVersion</con:name><con:value>${#Project#APPVersion}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>NetType</con:name><con:value>${#Project#NetType}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>OSVersion</con:name><con:value>${#Project#OSVersion}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>36a44796-fdd2-4e25-bd94-b44a96f94951</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>9d047578-d9d4-4595-983f-ced0273227d7</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>231495a1-31b5-4e07-866b-0e517358b906</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>273e8d9c-7d94-478f-9764-d66a65688f1f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>b176c2d3-7a85-4e50-86a9-0e3edab09b7b</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7c7650d5-06a5-4871-b546-593e2df222d4</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>d8a3b320-18db-421f-aa16-db510dd2fe71</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>54b6582b-ddb2-4f25-aca9-24208a48967f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="55205dc9-4201-4467-9cb8-53ac54306555" failOnError="true" failTestCaseOnErrors="true" keepSession="true" maxResults="0" name="获取认证种子GetAuthenSeed" searchProperties="true" timeout="0" wsrmEnabled="false" wsrmVersion="1.0" wsrmAckTo="" amfAuthorisation="false" amfEndpoint="" amfLogin="" amfPassword=""><con:settings/><con:testStep type="groovy" name="计算当前时间Time" id="f9bb4d0e-e044-4ccd-a056-eac38fb052fb"><con:settings/><con:config><script>import java.util.*;
+import java.text.SimpleDateFormat;
+// current date
+String currentTIme = today();
+log.info(currentTIme);
+return currentTIme;
+//**********************************************************************Methods**************************************************************************
+
+def today(){
+    String str = "";
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+    Calendar lastDate = Calendar.getInstance();
+    str = sdf.format(lastDate.getTime());
+    return str;
+}</script></con:config></con:testStep><con:testStep type="transfer" name="赋值Time" id="f1b36cfb-095e-45ac-a5f9-81302d5842c7"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Time</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算当前时间Time</con:sourceStep><con:targetType>Time</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="计算获取随机数的sign" id="32e4d41d-886d-49fd-a434-42048a38fefa"><con:settings/><con:config><script><![CDATA[import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  Time= context.expand( '${#Project#Time}' ); 
+  map.put("Time", Time);   
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+map.get(list.get(i))+"|";
+	}  
+//log.info(str);  
+def appid=context.expand( 'ok15we1@oid8x5afd@' );
+//log.info("key(appid)="+appid);
+String dst =str+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+log.info("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值随机数的sign" id="927971bb-4405-4bd4-b9d4-d23b0e85df93"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算获取随机数的sign</con:sourceStep><con:targetType>Sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="获取随机数GetRandomNumber" id="2fae711e-5be3-4402-a269-dade04d7990c"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="28954945-4135-4de1-b23a-160051535172" name="获取随机数GetRandomNumber" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://${#Project#weburl}/easytong_app/GetRandomNumber</con:endpoint><con:request/><con:assertion type="Simple Contains" id="8354ce0a-49ba-4bd8-8cde-cdc96c861d04" name="Contains"><con:configuration><token>&lt;Code>1&lt;/Code></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:password/><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>Time</con:name><con:value>${#Project#Time}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>Sign</con:name><con:value>${#Project#Sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="保存赋值随机数random" id="cc389465-5160-4ebb-87c3-4f7e898591af"><con:settings/><con:config><script>def  xresponse = testRunner.testCase.testSteps["获取随机数GetRandomNumber"].testRequest.response.contentAsString;
+def  str = new XmlParser().parseText(xresponse);
+ log.info(xresponse);
+def RandomNum=str.Random.text();
+ log.info(RandomNum);
+ testRunner.testCase.testSuite.project.setPropertyValue("random", RandomNum);
+// return    RandomNum ;</script></con:config></con:testStep><con:testStep type="groovy" name="计算获取认证种子的sign" id="c0c5bee8-2f32-4530-aa94-bd39fcc1bdb2"><con:settings/><con:config><script>import java.security.MessageDigest
+ import com.ctf.functions.mymd5; 
+ 
+
+ 
+ log.info("*****TEST 3des test Start *****");
+def  Passwordinit= context.expand( '${#Project#Passwordinit}' ); 
+log.info(" Passwordinit的字符串:" +Passwordinit);
+def random=context.expand( '${#Project#random}' ); 
+log.info("random的字符串:" +random);
+def key=random+"0000000000000000"; 
+log.info("key的字符串:" +key);
+//mymd5 mymd5=new mymd5();
+def  Password = mymd5.encode(key,Passwordinit);
+log.info("加密后字符串为:"+Password); 
+testRunner.testCase.testSuite.project.setPropertyValue("Password", Password);
+log.info("*****TEST 3des end*****");
+
+//字典序排序  
+HashMap&lt;String,String> map=new HashMap&lt;String,String>();  
+ def  AccNum= context.expand( '${#Project#AccNum}' ); 
+ def  IMEI= context.expand( '${#Project#IMEI}' ); 
+ //def  Password= context.expand( '${#Project#Password}' ); 
+ def  Time= context.expand( '${#Project#Time}' ); 
+
+ 
+
+ 
+  map.put("AccNum", AccNum);   
+  map.put("IMEI", IMEI);   
+  map.put("Password", Password);   
+   map.put("Time", Time);   
+ 
+ log.info("**********************MD5的Sign Start************************");
+ 
+ 
+ 
+Collection&lt;String> keyset= map.keySet();     
+List list=new ArrayList&lt;String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i&lt;list.size();i++){  
+	str=str+map.get(list.get(i))+"|";
+	}  
+//log.info(str);  
+def appid=context.expand( 'ok15we1@oid8x5afd@' );
+//log.info("key(appid)="+appid);
+String dst =str+appid;
+log.info(dst);  
+//调用工具类中的方法进行加密
+String strauthSign=mymd5.getMd5(dst);
+log.info( strauthSign);
+log.info("**********************MD5的Sign  End************************");
+
+return strauthSign ;
+ 
+ 
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="transfer" name="赋值sign" id="82da6e21-1abb-4b0b-ba9c-a1993909aa13"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>Sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算获取认证种子的sign</con:sourceStep><con:targetType>Sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="获取认证种子GetAuthenSeed" id="32e22dd4-b7bb-4e20-9272-e62a223b120b"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="4903189a-9552-47c7-8cb4-ff135d115303" name="获取认证种子GetAuthenSeed" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://${#Project#weburl}/easytong_app/GetAuthenSeed</con:endpoint><con:request/><con:assertion type="Simple Contains" id="b912cef2-b548-4854-979a-7de253a49b04" name="Contains"><con:configuration><token>&lt;Code>1&lt;/Code></token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter required="false" disableUrlEncoding="false"><con:name>AccNum</con:name><con:value>${#Project#AccNum}</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:description xsi:nil="true"/></con:parameter><con:parameter required="false" disableUrlEncoding="false"><con:name>IMEI</con:name><con:value>${#Project#IMEI}</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:description xsi:nil="true"/></con:parameter><con:parameter required="false" disableUrlEncoding="false"><con:name>Password</con:name><con:value>${#Project#Password}</con:value><con:style>QUERY</con:style><con:type xmlns:xs="http://www.w3.org/2001/XMLSchema">xs:string</con:type><con:default/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>Time</con:name><con:value>${#Project#Time}</con:value><con:style>QUERY</con:style><con:default>20120425201208</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>Sign</con:name><con:value>${#Project#Sign}</con:value><con:style>QUERY</con:style><con:default/><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>36a44796-fdd2-4e25-bd94-b44a96f94951</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>9d047578-d9d4-4595-983f-ced0273227d7</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>231495a1-31b5-4e07-866b-0e517358b906</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>273e8d9c-7d94-478f-9764-d66a65688f1f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2fae711e-5be3-4402-a269-dade04d7990c</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>cc389465-5160-4ebb-87c3-4f7e898591af</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>c0c5bee8-2f32-4530-aa94-bd39fcc1bdb2</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>32e4d41d-886d-49fd-a434-42048a38fefa</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>927971bb-4405-4bd4-b9d4-d23b0e85df93</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>82da6e21-1abb-4b0b-ba9c-a1993909aa13</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>Time</con:name><con:value>20171213211538</con:value></con:property><con:property><con:name>Sign</con:name><con:value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">b39015ae7959da58c24691c0c2ad7fe7</con:value></con:property><con:property><con:name>AccNum</con:name><con:value>100142</con:value></con:property><con:property><con:name>IMEI</con:name><con:value>52002719012435805</con:value></con:property><con:property><con:name>Passwordinit</con:name><con:value>310012</con:value></con:property><con:property><con:name>Password</con:name><con:value>c/oj/1gxLKw=</con:value></con:property><con:property><con:name>weburl</con:name><con:value>192.168.1.26:83</con:value></con:property><con:property><con:name>random</con:name><con:value>48268920</con:value></con:property><con:property><con:name>UsrNumber</con:name><con:value>1233219</con:value></con:property><con:property><con:name>DeviceNum</con:name><con:value>0</con:value></con:property><con:property><con:name>DeviceModel</con:name><con:value>HUAWEI</con:value></con:property><con:property><con:name>OSType</con:name><con:value>1</con:value></con:property><con:property><con:name>APPVersion</con:name><con:value>5.0.17.0330</con:value></con:property><con:property><con:name>NetType</con:name><con:value>5</con:value></con:property><con:property><con:name>OSVersion</con:name><con:value>7.0</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:oAuth2ProfileContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:sensitiveInformation/></con:soapui-project>

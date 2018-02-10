@@ -1,0 +1,619 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="83fbf144-4ea2-4815-9d9d-98a590aefe02" activeEnvironment="Default" name="ET_HTTP_Test" resourceRoot="" soapui-version="5.1.2" xmlns:con="http://eviware.com/soapui/config"><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting><con:setting id="GeneratableJUnitReport@Style">Multiple Pages</con:setting><con:setting id="GeneratableJUnitReport@Folder">C:\Users\chutf\Desktop</con:setting><con:setting id="ProjectSettings@shadowPassword"/></con:settings><con:testSuite id="8e631dc3-b2a1-4156-9c1e-e7d3ad6e8729" name="信息查询InfoQueryService"><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting><con:setting id="GeneratableJUnitReport@Style">Multiple Pages</con:setting><con:setting id="GeneratableJUnitReport@Folder">C:\Users\chutf\Desktop</con:setting></con:settings><con:runType>SEQUENTIAL</con:runType><con:testCase id="ea49d582-e53c-4f9f-bb88-343abb63a903" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取账户信息GetAccount" searchProperties="true"><con:settings><con:setting id="IncludeOverview">true</con:setting><con:setting id="IncludeResults">true</con:setting><con:setting id="FlowLayout">false</con:setting><con:setting id="ErrorDetails">true</con:setting><con:setting id="IncludeCoverage">true</con:setting></con:settings><con:testStep type="httprequest" name="HTTP获取access_token" id="799106e4-8b20-44d2-8a1f-e5b0b0dae278"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="669dec2b-75dc-4b7d-9002-1b8a768433c9"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="计算获取账户信息的sign" id="3ee83e0e-a3a8-4c2e-a5cc-dc34ba8a31a6"><con:settings/><con:config><script><![CDATA[import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  queryType= context.expand( '${#Project#queryType}' );
+ def  uniqueId= context.expand( '${#Project#uniqueId}');
+  map.put("uniqueId", uniqueId);   
+   map.put("queryType",queryType); 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值access_token" id="b9ca59e8-f0c3-4e55-b5e3-57e41e2649c3"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:sourcePath/><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:targetPath/><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>getAccount_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算获取账户信息的sign</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>getAccount_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:targetPath xsi:nil="true"/><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP获取账户信息" id="78f1644f-3af7-4304-a745-a730bbde43c3"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="73f18d89-9ac1-4340-ba10-3863dbe1c932" name="HTTP获取账户信息" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/infoqueryservice/getaccount</con:endpoint><con:request/><con:assertion type="Simple Contains" id="0eaea235-86d2-47e2-822a-e01cd61a357f" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>queryType</con:name><con:value>${#Project#queryType}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>uniqueId</con:name><con:value>${#Project#uniqueId}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#getAccount_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>3ee83e0e-a3a8-4c2e-a5cc-dc34ba8a31a6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>b9ca59e8-f0c3-4e55-b5e3-57e41e2649c3</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="390922ff-82d2-4346-9554-a981f185882c" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="查询卡片信息GetCardInfo" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="e36c2cab-6d85-44bf-bf3e-f6ae64057833"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="b056cdb0-2d17-4bd3-9e92-41a006217657"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="计算查询卡片信息的sign" id="2406f844-cd56-472e-b059-7bad4c2b8a54"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+ map.put("accNum",accNum);  
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值access_token" id="a86954b4-c8f8-4c5a-8d43-025b6496cbcf"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:sourcePath/><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:targetPath/><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" disabled="false" entitize="false" ignoreEmpty="false" transferChildNodes="false" transferToAll="false" useXQuery="false"><con:name>getAccount_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算查询卡片信息的sign</con:sourceStep><con:sourcePath xsi:nil="true"/><con:targetType>queryCardInfo_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:targetPath xsi:nil="true"/><con:type>XPATH</con:type><con:targetTransferType>XPATH</con:targetTransferType><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP查询卡片信息" id="ac9f71c5-4aac-479b-876f-6da77b1ba831"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="a44ac4df-dd78-4ca5-b88e-747b9759a762" name="HTTP查询卡片信息" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/infoqueryservice/querycard</con:endpoint><con:request/><con:assertion type="Simple Contains" id="c725ad74-8f52-40b5-abf3-9bb7790446e0" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#queryCardInfo_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>a86954b4-c8f8-4c5a-8d43-025b6496cbcf</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:testSuite id="89809b53-02e3-4bb4-9749-4571d0299bc0" name="信息变更InfoChangeService"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="b7cdcba9-9b30-426d-b4c3-217b7c725710" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="一卡通密码验证ValidatePwd" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="de28e580-8fb0-499f-b1b1-2a8f0125f570"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="38d6a98d-04c0-45a9-aa22-9650b2476fab"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="计算密码加密后的值" id="6b039c66-2b30-4722-b9fd-55e5357f2244"><con:settings/><con:config><script>//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+ 
+ def  unencryptedPwd= context.expand( '${#Project#unencryptedPwd}' );
+def appid=context.expand( '${#Project#appid}' );
+stringTemp="password="+unencryptedPwd ;
+log.info(stringTemp);
+log.info("key(appid)="+appid);
+String dst =stringTemp+ "&amp;key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b &amp; 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+</script></con:config></con:testStep><con:testStep type="transfer" name="赋值token和加密后密码" id="a4954e07-7083-4e64-a69d-a39c56e4f73c"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>encryptedPwd</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算密码加密后的值</con:sourceStep><con:targetType>encryptedPwd</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="计算一卡通密码验证的sign" id="e2346d79-369c-4c16-8c0f-ae4614880851"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+  def  password= context.expand( '${#Project#encryptedPwd}' );
+ map.put("accNum",accNum);  
+ map.put("password",password);  
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值sign" id="6efc49b9-f335-4ce9-90a5-2713b9abcbea"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>validatePwd_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算一卡通密码验证的sign</con:sourceStep><con:targetType>validatePwd_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP一卡通密码验证" id="fb59e797-e6b6-4ca2-9202-2b6f59e648c9"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="51ca82d3-1f63-47e3-9319-41396faba2e2" name="HTTP一卡通密码验证" postQueryString="false" mediaType="application/x-www-form-urlencoded" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/infochangeservice/validatepwd</con:endpoint><con:request/><con:assertion type="Simple Contains" id="d9ee4af9-89f8-4986-a774-d007d2c6a4e5" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>password</con:name><con:value>${#Project#encryptedPwd}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#validatePwd_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>fb59e797-e6b6-4ca2-9202-2b6f59e648c9</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a4954e07-7083-4e64-a69d-a39c56e4f73c</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>6efc49b9-f335-4ce9-90a5-2713b9abcbea</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="43b025f5-a476-4f3b-b059-581ddb3dc2c4" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="卡片挂失ReportLoss" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="63139657-8c0a-418f-9516-d1e067433495"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="9ebb11cf-a624-45c1-8843-d24819f60fc0"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="计算卡片挂失的sign" id="bfce743f-7096-4c2b-82e2-35d23b2a0c5d"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  cardAccNum= context.expand( '${#Project#cardAccNum}' );
+ map.put("cardAccNum",cardAccNum);  
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值access_token" id="4a186839-7d51-4153-9f8c-8d114c7f73f2"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>reportLoss_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算卡片挂失的sign</con:sourceStep><con:targetType>reportLoss_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP卡片挂失" id="cf5c85cb-b5ac-429d-96f4-fc039701800f"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="7c1d691d-b900-4fdf-a055-f50bf35f1a85" name="HTTP卡片挂失" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/infochangeservice/reportloss</con:endpoint><con:request/><con:assertion type="Simple Contains" id="c41bc444-7e68-42b7-a0a4-0c270c9ce421" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style><con:default>${Project#access_token}</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>cardAccNum</con:name><con:value>${#Project#cardAccNum}</con:value><con:style>QUERY</con:style><con:default>${Project#cardAccNum}</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#reportLoss_sign}</con:value><con:style>QUERY</con:style><con:default>${Project#reportLoss_sign}</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="httprequest" name="HTTP卡片解挂" id="b8009d58-4798-4434-ae35-c170608767a1"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="17e42e18-9e54-49e2-9d55-480c290fc547" name="HTTP卡片解挂" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/infochangeservice/freeloss</con:endpoint><con:request/><con:assertion type="Simple Contains" id="8f742292-2a9a-4377-bc74-e8a7eec2792d" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>cardAccNum</con:name><con:value>${#Project#cardAccNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#reportLoss_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>9ebb11cf-a624-45c1-8843-d24819f60fc0</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>63139657-8c0a-418f-9516-d1e067433495</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>4a186839-7d51-4153-9f8c-8d114c7f73f2</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>bfce743f-7096-4c2b-82e2-35d23b2a0c5d</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>cf5c85cb-b5ac-429d-96f4-fc039701800f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>b8009d58-4798-4434-ae35-c170608767a1</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:testSuite id="b88f5d96-2dea-4d71-ae31-a9a764ec447b" name="支付消费PayService"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="03b7f23b-1468-4e26-bc67-ea3f21b65393" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="一卡通充值Recharge" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="e4482e70-6339-4601-b2b9-ace83d869fe2"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="dc8c7d22-aeb7-44ed-8460-0ec7cc26197b"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="随机数赋值给充值金额第三方的订单号等" id="7876a886-dbbe-441d-96d8-ec99491a5a7f"><con:settings/><con:config><script>def officialOrderNum = String.valueOf(System.currentTimeMillis());
+//时间赋值给officialOrderNum
+log.info("officialOrderNum(currentTimeMillis)="+officialOrderNum);
+
+
+def random=new Random();
+def row=random.nextInt(200);
+float f=25.5
+if (row==0)
+	row=100;
+float d=f/row;
+//金额使用生成的2位小数点的值
+def famount=Math.round(d*100)/100;
+def amount="100"
+//def amount= famount.toString();
+log.info("amount="+amount);
+
+
+//serialNum用时间+1
+def timetmp = String.valueOf(System.currentTimeMillis()); 
+def serialNum=timetmp+"1";
+log.info("serialNum(currentTimeMillis)="+serialNum);
+
+
+//来源渠道
+def isourceChannel=random.nextInt(2)+2;
+//def sourceChannel=isourceChannel.toString();
+//测试翼支付
+def sourceChannel="3";
+log.info("sourceChannel="+sourceChannel);
+
+
+//赋值porject 下custom properties
+testRunner.testCase.testSuite.project.setPropertyValue("amount", amount);
+testRunner.testCase.testSuite.project.setPropertyValue("officialOrderNum", officialOrderNum);
+testRunner.testCase.testSuite.project.setPropertyValue("serialNum", serialNum);
+testRunner.testCase.testSuite.project.setPropertyValue("sourceChannel", sourceChannel);
+ 
+ 
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="计算一卡通充值的sign" id="a83c2b4d-2ec7-4aa2-a9fc-9698e6d05081"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+ def  amount= context.expand( '${#Project#amount}' );
+ def  officialOrderNum= context.expand( '${#Project#officialOrderNum}' );
+ def  serialNum= context.expand( '${#Project#serialNum}' );
+  def  sourceChannel= context.expand( '${#Project#sourceChannel}' );
+ map.put("accNum",accNum);  
+ map.put("amount",amount);  
+ map.put("officialOrderNum",officialOrderNum);  
+ map.put("serialNum",serialNum);  
+ map.put("sourceChannel",sourceChannel);  
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值token和sign" id="2513024c-e271-4e03-acaa-33b20b51d3ee"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>recharge_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算一卡通充值的sign</con:sourceStep><con:targetType>recharge_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP一卡通充值" id="ec4e512c-dcc9-465f-9ea4-7cf43c85add6"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="32235e20-ae54-4ce2-8186-1b32f3944de6" name="HTTP一卡通充值" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/payservice/recharge</con:endpoint><con:request/><con:assertion type="Simple Contains" id="a7d6e82a-8523-424c-88a1-ee65a8123748" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>amount</con:name><con:value>${#Project#amount}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>officialOrderNum</con:name><con:value>${#Project#officialOrderNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>serialNum</con:name><con:value>${#Project#serialNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sourceChannel</con:name><con:value>${#Project#sourceChannel}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#recharge_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:loadTest id="9e4a1b99-3dd8-4e5b-aa9e-f59e9b03a788" name="LoadTest 1"><con:settings/><con:threadCount>3</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:reportParameters/></con:loadTest><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>ec4e512c-dcc9-465f-9ea4-7cf43c85add6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2513024c-e271-4e03-acaa-33b20b51d3ee</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7876a886-dbbe-441d-96d8-ec99491a5a7f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a83c2b4d-2ec7-4aa2-a9fc-9698e6d05081</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="2298f556-c1f0-49e2-b8eb-0464fbbb8a08" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="一卡通消费Pay" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="adf9ec5a-9d82-40ac-bd55-dc3598ed22cc"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="cf6458df-a5d0-46c2-a91d-685dfba497f7"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="随机数赋值消费金额第三方的订单号" id="27c888a7-029e-48a0-8c02-4509202cbcf1"><con:settings/><con:config><script>//def officialOrderNum = String.valueOf(System.currentTimeMillis());
+//时间赋值给officialOrderNum
+//log.info("officialOrderNum(currentTimeMillis)="+officialOrderNum);
+
+
+def random=new Random();
+def row=random.nextInt(200);
+float f=25.5
+if (row==0)
+	row=100;
+float d=f/row;
+//金额使用生成的2位小数点的值
+def famount=Math.round(d*100)/100;
+def amount= famount.toString();
+log.info("amount="+amount);
+
+
+//serialNum用时间+1
+def timetmp = String.valueOf(System.currentTimeMillis()); 
+def serialNum=timetmp+"1";
+log.info("serialNum(currentTimeMillis)="+serialNum);
+
+
+//来源渠道
+//def isourceChannel=random.nextInt(1)+2;
+//def sourceChannel=isourceChannel.toString();
+
+//log.info("sourceChannel="+sourceChannel);
+
+
+//赋值porject 下custom properties
+testRunner.testCase.testSuite.project.setPropertyValue("amount", amount);
+//testRunner.testCase.testSuite.project.setPropertyValue("officialOrderNum", officialOrderNum);
+testRunner.testCase.testSuite.project.setPropertyValue("serialNum", serialNum);
+//testRunner.testCase.testSuite.project.setPropertyValue("sourceChannel", sourceChannel);
+ 
+ 
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="计算一卡通消费的sign" id="a3093deb-22f6-42b3-b423-a7f72c75fae9"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+ def  amount= context.expand( '${#Project#amount}' );
+// def  officialOrderNum= context.expand( '${#Project#officialOrderNum}' );
+ def  serialNum= context.expand( '${#Project#serialNum}' );
+  //def  sourceChannel= context.expand( '${#Project#sourceChannel}' );
+ map.put("accNum",accNum);  
+ map.put("amount",amount);  
+ //map.put("officialOrderNum",officialOrderNum);  
+ map.put("serialNum",serialNum);  
+ //map.put("sourceChannel",sourceChannel);  
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值token和sign" id="435cd9ea-38bb-4b36-8f9e-a87cdb5f844f"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>pay_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算一卡通消费的sign</con:sourceStep><con:targetType>pay_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP一卡通消费" id="e042229e-c1e7-4c5b-96cd-ebd747f059cd"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="32235e20-ae54-4ce2-8186-1b32f3944de6" name="HTTP一卡通消费" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/payservice/pay</con:endpoint><con:request/><con:assertion type="Simple Contains" id="a7d6e82a-8523-424c-88a1-ee65a8123748" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>amount</con:name><con:value>${#Project#amount}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>serialNum</con:name><con:value>${#Project#serialNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#pay_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:loadTest id="4601e1a1-b25c-4990-b45c-4d41a4210e6a" name="LoadTest 1"><con:settings/><con:threadCount>3</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:reportParameters/></con:loadTest><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>ec4e512c-dcc9-465f-9ea4-7cf43c85add6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2513024c-e271-4e03-acaa-33b20b51d3ee</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7876a886-dbbe-441d-96d8-ec99491a5a7f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a83c2b4d-2ec7-4aa2-a9fc-9698e6d05081</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:testCase id="b7b7ed6d-87c5-400a-a029-4342d1f9be7f" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="获取二维码GetqrCode" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="bf94608f-da4d-48a6-bcdd-4aa6f99a0c3e"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="ef44e6d9-ab30-42c9-9998-fcef10a218b1"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="计算获取二维码的sign" id="78bc4756-c8da-4e03-8265-cc4eb90c6547"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+ map.put("accNum",accNum);   
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值token和sign" id="48022c8e-db76-45cc-9e94-e22c42b11987"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>getqrcode_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算获取二维码的sign</con:sourceStep><con:targetType>getqrcode_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP获取二维码GetqrCode" id="1bd1ddcb-e894-405d-a832-34a88f6b20d7"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="32235e20-ae54-4ce2-8186-1b32f3944de6" name="HTTP获取二维码GetqrCode" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/payservice/getqrcode</con:endpoint><con:request/><con:assertion type="Simple Contains" id="a7d6e82a-8523-424c-88a1-ee65a8123748" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#getqrcode_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:loadTest id="3f005df3-4db2-479f-9bdf-942c619b7cdb" name="LoadTest 1"><con:settings/><con:threadCount>3</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:reportParameters/></con:loadTest><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>ec4e512c-dcc9-465f-9ea4-7cf43c85add6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2513024c-e271-4e03-acaa-33b20b51d3ee</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7876a886-dbbe-441d-96d8-ec99491a5a7f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a83c2b4d-2ec7-4aa2-a9fc-9698e6d05081</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:testSuite id="a44f0694-0be7-4381-b48d-13deb463eeaf" name="交易冲正correct"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase id="c7cdbc5b-cb4c-4f01-adee-a75959e320dd" failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="消费冲正correct" searchProperties="true"><con:settings/><con:testStep type="httprequest" name="HTTP获取access_token" id="482977cc-a205-48fc-9ab8-649a9960d1fb"><con:settings/><con:config method="GET" xsi:type="con:HttpRequest" id="10f843c2-d865-41e5-89ab-173030e6d27d" name="HTTP获取access_token" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/token</con:endpoint><con:request/><con:assertion type="Simple Contains" id="7777a0a6-e464-49b0-94a1-a0f26aac00f8" name="Contains"><con:configuration><token>access_token</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>appid</con:name><con:value>${#Project#appid}</con:value><con:style>QUERY</con:style><con:default>1</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter><con:parameter><con:name>appsecret</con:name><con:value>${#Project#appsecret}</con:value><con:style>QUERY</con:style><con:default>2</con:default><con:path xsi:nil="true"/><con:description xsi:nil="true"/></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="截取返回值中的access_token" id="d36f644e-2a90-4e81-9c40-b54b68fc789d"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP获取access_token"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def access_token = result .access_token.toString()  
+ def expires_in =result .expires_in.toString()  
+ //access_token
+ log.info(access_token)     
+ log.info(expires_in)  
+ return   access_token;</script></con:config></con:testStep><con:testStep type="groovy" name="随机数赋值给消费及冲正金额和第三方的订单号等" id="31f89423-52f8-42ca-a04b-88746c38e619"><con:settings/><con:config><script>//def officialOrderNum = String.valueOf(System.currentTimeMillis());
+//时间赋值给officialOrderNum
+//log.info("officialOrderNum(currentTimeMillis)="+officialOrderNum);
+
+
+def random=new Random();
+def row=random.nextInt(200);
+float f=25.5
+if (row==0)
+	row=100;
+float d=f/row;
+//金额使用生成的2位小数点的值
+def famount=Math.round(d*100)/100;
+def amount= famount.toString();
+log.info("amount="+amount);
+
+
+//serialNum用时间+1
+def timetmp = String.valueOf(System.currentTimeMillis()); 
+def serialNum=timetmp+"1";
+log.info("serialNum(currentTimeMillis)="+serialNum);
+
+
+//来源渠道
+//def isourceChannel=random.nextInt(1)+2;
+//def sourceChannel=isourceChannel.toString();
+
+//log.info("sourceChannel="+sourceChannel);
+
+
+//赋值porject 下custom properties
+testRunner.testCase.testSuite.project.setPropertyValue("amount", amount);
+//testRunner.testCase.testSuite.project.setPropertyValue("officialOrderNum", officialOrderNum);
+testRunner.testCase.testSuite.project.setPropertyValue("serialNum", serialNum);
+//testRunner.testCase.testSuite.project.setPropertyValue("sourceChannel", sourceChannel);
+ 
+ 
+
+ </script></con:config></con:testStep><con:testStep type="groovy" name="计算一卡通消费的sign" id="085d4594-2e65-48b9-889c-1088bdb1ba4b"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  accNum= context.expand( '${#Project#accNum}' );
+ def  amount= context.expand( '${#Project#amount}' );
+// def  officialOrderNum= context.expand( '${#Project#officialOrderNum}' );
+ def  serialNum= context.expand( '${#Project#serialNum}' );
+  //def  sourceChannel= context.expand( '${#Project#sourceChannel}' );
+ map.put("accNum",accNum);  
+ map.put("amount",amount);  
+ //map.put("officialOrderNum",officialOrderNum);  
+ map.put("serialNum",serialNum);  
+ //map.put("sourceChannel",sourceChannel);  
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值token和sign" id="dbfa5613-fbec-4492-93ca-25aedf3b838c"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>access_token</con:name><con:sourceType>result</con:sourceType><con:sourceStep>截取返回值中的access_token</con:sourceStep><con:targetType>access_token</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>pay_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算一卡通消费的sign</con:sourceStep><con:targetType>pay_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP先消费一笔" id="666fe0fb-71c1-4532-8bf5-2954b722cafb"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="32235e20-ae54-4ce2-8186-1b32f3944de6" name="HTTP先消费一笔" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/payservice/pay</con:endpoint><con:request/><con:assertion type="Simple Contains" id="a7d6e82a-8523-424c-88a1-ee65a8123748" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>accNum</con:name><con:value>${#Project#accNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>amount</con:name><con:value>${#Project#amount}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>serialNum</con:name><con:value>${#Project#serialNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#pay_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:testStep type="groovy" name="获取消费后一卡通的platformSerialNum订单号" id="06317a7f-0dbc-4601-ac4e-4e9d847a5d15"><con:settings/><con:config><script>import groovy.json.JsonSlurper
+ //获取response值，注testSteps指得是请求名称，而不是TestCase的名称
+ def xresponse = testRunner.testCase.testSteps["HTTP先消费一笔"].testRequest.response.contentAsString
+ def slurper = new JsonSlurper()
+ def result = slurper.parseText(xresponse)
+ def correctSerialNum = result .data.platformSerialNum.toString()  
+ def serialNum =result .data.serialNum.toString()  
+ //platformSerialNum   
+ log.info("platformSerialNum(correctSerialNum)="+correctSerialNum) 
+ //log.info("serialNum="+serialNum)  
+
+
+  //serialNum用时间+1
+def timetmp = String.valueOf(System.currentTimeMillis()); 
+def correctThridSerialNum=timetmp+"1";
+log.info("correctThridSerialNum(currentTimeMillis)="+correctThridSerialNum);
+testRunner.testCase.testSuite.project.setPropertyValue("correctThridSerialNum", correctThridSerialNum);
+
+
+ return   correctSerialNum;
+
+</script></con:config></con:testStep><con:testStep type="transfer" name="消费后一卡通订单给冲正用" id="da9beb99-1b1e-488c-810d-b0e180e966ce"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>correctSerialNum</con:name><con:sourceType>result</con:sourceType><con:sourceStep>获取消费后一卡通的platformSerialNum订单号</con:sourceStep><con:targetType>correctSerialNum</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="groovy" name="计算一卡通冲正的sign" id="c67ed77f-abc8-4b15-a3fb-193ffa1fb12a"><con:settings/><con:config><script><![CDATA[//package com.ctf.functions  //此包必须与jar包中的包名一致
+//def mymd5 = new mymd5()
+//log.info mymd5
+import java.security.MessageDigest
+
+//字典序排序  
+HashMap<String,String> map=new HashMap<String,String>();  
+ def  serialNum= context.expand( '${#Project#correctThridSerialNum}' );
+ def  correctSerialNum= context.expand( '${#Project#correctSerialNum}' );  
+ map.put("serialNum",serialNum);  
+ map.put("correctSerialNum",correctSerialNum);   
+ 
+Collection<String> keyset= map.keySet();     
+List list=new ArrayList<String>(keyset);    
+Collections.sort(list);  
+//这种打印出的字符串顺序和微信官网提供的字典序顺序是一致的  
+def str=""
+for(int i=0;i<list.size();i++){  
+	str=str+list.get(i)+"="+map.get(list.get(i))+"&";
+	}  
+//log.info(str);  
+
+def appid=context.expand( '${#Project#appid}' );
+log.info("key(appid)="+appid);
+String dst =str+ "key="+appid;
+log.info(dst);  
+MessageDigest md = MessageDigest.getInstance("MD5");
+md.update(dst.getBytes());// 将original传给md5
+byte[] digest = md.digest();// 产生md5序列
+StringBuffer strmd5 = new StringBuffer();// 转换md5值为16进制
+for (byte b : digest) {
+    strmd5.append(String.format("%02x", b & 0xff));
+}
+
+System.out.println("MD5:" + strmd5);
+
+return strmd5 ;
+
+
+
+
+]]></script></con:config></con:testStep><con:testStep type="transfer" name="赋值sign" id="66daf1b7-41a4-47e0-bdc0-6b971c982051"><con:settings/><con:config xsi:type="con:PropertyTransfersStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:transfers setNullOnMissingSource="true" transferTextContent="true" failOnError="true" ignoreEmpty="false" transferToAll="false" entitize="false" transferChildNodes="false"><con:name>correct_sign</con:name><con:sourceType>result</con:sourceType><con:sourceStep>计算一卡通冲正的sign</con:sourceStep><con:targetType>correct_sign</con:targetType><con:targetStep>#Project#</con:targetStep><con:upgraded>true</con:upgraded></con:transfers></con:config></con:testStep><con:testStep type="httprequest" name="HTTP消费冲正" id="8f89b0b3-3e02-4ab5-81a7-ee44a7a1cad8"><con:settings/><con:config method="POST" xsi:type="con:HttpRequest" id="32235e20-ae54-4ce2-8186-1b32f3944de6" name="HTTP消费冲正" postQueryString="false" mediaType="application/xml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://192.168.1.26:83/easytong_app/api/payservice/correct</con:endpoint><con:request/><con:assertion type="Simple Contains" id="a7d6e82a-8523-424c-88a1-ee65a8123748" name="Contains"><con:configuration><token>"code":"0"</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters><con:parameter><con:name>access_token</con:name><con:value>${#Project#access_token}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>serialNum</con:name><con:value>${#Project#correctThridSerialNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>correctSerialNum</con:name><con:value>${#Project#correctSerialNum}</con:value><con:style>QUERY</con:style></con:parameter><con:parameter><con:name>sign</con:name><con:value>${#Project#correct_sign}</con:value><con:style>QUERY</con:style></con:parameter></con:parameters></con:config></con:testStep><con:loadTest id="7d69bcfb-b73c-4c08-aebf-87e09d0fcb27" name="LoadTest 1"><con:settings/><con:threadCount>3</con:threadCount><con:startDelay>0</con:startDelay><con:sampleInterval>250</con:sampleInterval><con:calculateTPSOnTimePassed>true</con:calculateTPSOnTimePassed><con:resetStatisticsOnThreadCountChange>true</con:resetStatisticsOnThreadCountChange><con:historyLimit>-1</con:historyLimit><con:testLimit>60</con:testLimit><con:limitType>TIME</con:limitType><con:loadStrategy><con:type>Simple</con:type></con:loadStrategy><con:assertion type="Step Status" name="Step Status"/><con:maxAssertionErrors>100</con:maxAssertionErrors><con:cancelExcessiveThreads>true</con:cancelExcessiveThreads><con:strategyInterval>500</con:strategyInterval><con:reportParameters/></con:loadTest><con:properties/><con:reportParameters/><con:breakPoints><con:testStepId>ec4e512c-dcc9-465f-9ea4-7cf43c85add6</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>2513024c-e271-4e03-acaa-33b20b51d3ee</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>7876a886-dbbe-441d-96d8-ec99491a5a7f</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>a83c2b4d-2ec7-4aa2-a9fc-9698e6d05081</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>666fe0fb-71c1-4532-8bf5-2954b722cafb</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints><con:breakPoints><con:testStepId>c67ed77f-abc8-4b15-a3fb-193ffa1fb12a</con:testStepId><con:status>NONE</con:status><con:properties/></con:breakPoints></con:testCase><con:properties/><con:reportParameters/></con:testSuite><con:requirements/><con:properties><con:property><con:name>host</con:name><con:value>192.168.1.26</con:value></con:property><con:property><con:name>port</con:name><con:value>83</con:value></con:property><con:property><con:name>appid</con:name><con:value>0B07CBC688C4A010ABF22E87AB8712F3</con:value></con:property><con:property><con:name>appsecret</con:name><con:value>A5D1F27177A0933B3B9E0F4235536BDB</con:value></con:property><con:property><con:name>access_token</con:name><con:value>3136303731373065336233FD6240E01BD2CAF6C1F8E879F8874B19CC0E43A6269CC0173DE2D08D11B250938ABAF508</con:value></con:property><con:property><con:name>queryType</con:name><con:value>1</con:value></con:property><con:property><con:name>uniqueId</con:name><con:value>106241</con:value></con:property><con:property><con:name>getAccount_sign</con:name><con:value>a4e2a7554864943abe3298213e346dd6</con:value></con:property><con:property><con:name>accNum</con:name><con:value>106241</con:value></con:property><con:property><con:name>queryCardInfo_sign</con:name><con:value>a8558e3b14cf2d93ad557c790da1f517</con:value></con:property><con:property><con:name>cardAccNum</con:name><con:value>102616</con:value></con:property><con:property><con:name>reportLoss_sign</con:name><con:value>36bcfbacda178bf767137f4564f75692</con:value></con:property><con:property><con:name>unencryptedPwd</con:name><con:value>123321</con:value></con:property><con:property><con:name>encryptedPwd</con:name><con:value>e08510cfc56a4ea92e28c3a1160ea871</con:value></con:property><con:property><con:name>validatePwd_sign</con:name><con:value>f376a9be5f76d58ccfd88e97d3284da6</con:value></con:property><con:property><con:name>amount</con:name><con:value>0.61</con:value></con:property><con:property><con:name>officialOrderNum</con:name><con:value>1509368746298</con:value></con:property><con:property><con:name>serialNum</con:name><con:value>15137317098811</con:value></con:property><con:property><con:name>sourceChannel</con:name><con:value>3</con:value></con:property><con:property><con:name>recharge_sign</con:name><con:value>51054ee0d17c4dbc452a85f029e1b877</con:value></con:property><con:property><con:name>pay_sign</con:name><con:value>4f0fcf4501de1969063929c7c85939aa</con:value></con:property><con:property><con:name>correctThridSerialNum</con:name><con:value>15137317110501</con:value></con:property><con:property><con:name>correctSerialNum</con:name><con:value>7665</con:value></con:property><con:property><con:name>correct_sign</con:name><con:value>06bc60c49d07915962b5ecab251c61b3</con:value></con:property><con:property><con:name>getqrcode_sign</con:name><con:value>a8558e3b14cf2d93ad557c790da1f517</con:value></con:property></con:properties><con:wssContainer/><con:databaseConnectionContainer/><con:oAuth2ProfileContainer/><con:reporting><con:reportTemplates/><con:xmlTemplates/><con:parameters/></con:reporting><con:sensitiveInformation/></con:soapui-project>
